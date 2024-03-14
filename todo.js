@@ -1,36 +1,39 @@
 console.log("running");
 
-let todoList = [];
+// let todoList = [
+//   { item: "buy milk",
+//    dueDate: "2/3/4" },
+//   { item: "gotocollege",
+//    dueDate: "2 / 3 / 5" },
+// ];
+let todoList = []
+// displayItems()
+
 function addTodo() {
   let inputElement = document.querySelector("#todo-input");
   let dateElement = document.querySelector("#todo-date");
   let todoItem = inputElement.value;
   let todoDate = dateElement.value;
-  todoList.push({ item: todoItem, dueDate: todoDate });
-  let saveTodoList = localStorage.setItem("ToDoList", JSON.stringify(todoList));
-  // console.log(todoList);
-  console.log(localStorage.getItem("ToDoList"));
+  todoList.push({item: todoItem, dueDate: todoDate});
+  //   console.log(todoItem);
   inputElement.value = "";
-  dateElement.value = "";
+
   displayItems();
 }
 
 function displayItems() {
   let containerElement = document.querySelector(".todo-container");
-  let newHtml = "";
-  let getTodostr = localStorage.getItem("ToDoList");
-  console.log("get", getTodostr);
-  let getTodoList = [{ item: "", dueDate: "" }] || JSON.parse(getTodostr);
+  let newHtml = ``;
 
-  console.log(getTodoList);
-  for (let i = 0; i < getTodoList.length; i++) {
-    let { item, dueDate } = getTodoList[i];
+  for (let i = 0; i < todoList.length; i++) {
+    // let item = todoList[i].item;
+    // let dueDate = todoList[i].dueDate;
+    let {item, dueDate} = todoList[i]
     newHtml += `
-      <span> ${item}</span>
-      <span> ${dueDate}</span>
-      <button class="btn-delete" onclick="getTodoList.splice(${i}, 1)
-      displayItems();">Delete</button>  
-    `;
+                    <span>${item}</span>
+                    <span>${dueDate}</span>
+                    <button class='btn-delete' onclick="todoList.splice(${i},1); displayItems();">Delete</button>
+                `;
   }
   containerElement.innerHTML = newHtml;
 }
